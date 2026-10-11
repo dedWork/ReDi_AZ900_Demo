@@ -1,0 +1,308 @@
+:root {
+    --bg-color: #1e1e2e;
+    --bg_1-color: #313244;
+    --text-color: #cdd6f4;
+    --border-color: #6c7086;
+    --active-border-color: #b4befe;
+    --font-family: "Courier New", Courier, monospace;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-family);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.tui-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    width: 90%;
+    max-width: 700px;
+}
+
+.tui-panel {
+    border: 2px solid var(--border-color);
+    position: relative; 
+    padding: 30px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tui-title {
+    position: absolute;
+    top: -12px; 
+    left: 20px;
+    background-color: var(--bg-color);
+    padding: 0 10px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+}
+
+.tui-title-bottom {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    bottom: -12px; 
+    right: 20px;
+    background-color: var(--bg-color);
+    padding: 0 5px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+}
+
+.tui-content {
+    font-size: 2.5rem;
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+.tui-config-text {
+    background-color: var(--bg_1-color);
+    text-align: left;
+    font-family: var(--font-family);
+    color: var(--text-color);
+    width: 3000px;
+}
+
+.tui-config-text:focus {
+    outline: none !important;
+    border:2px solid var(--active-border-color);
+}
+
+.tui-config-button {
+    background:none; 
+    border:none; 
+    padding:0;
+    font-family: var(--font-family);
+    color: var(--text-color);
+}
+
+#feedbackLog {
+    font-family: monospace;
+    font-size: 0.9em;
+    min-height: 1.2em;      
+}
+
+.search-panel {
+    grid-column: 1 / -1; 
+    justify-content: flex-start; 
+    align-items: center;
+    padding-left: 30px; 
+}
+
+#search-form {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.prompt {
+    font-size: 1.5rem;
+    margin-right: 10px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+#search-input {
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    font-family: var(--font-family);
+    font-size: 1.5rem;
+    width: 100%;
+    outline: none;
+    text-align: left; 
+}
+
+#search-input::placeholder {
+    color: var(--text-color);
+    opacity: 0.3;
+}
+
+
+@media (max-width: 600px) {
+    .tui-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+.select-wrapper {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: default;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  padding: 0.25em 0.5em;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 0.25em;
+  white-space: wrap;
+  width: 850px;
+  
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: 100%;
+  transition-property: visibility;
+  transition-delay: 0s;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  transition-delay: 0.3s;
+}
+
+
+#engine-select {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-family);
+    font-weight: bold;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    
+    text-align: center;
+    text-align-last: center; 
+    
+    min-width: 100px; 
+    padding: 0;
+    margin: 0;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+#engine-select:hover {
+    background-color: var(--text-color) !important;
+    color: var(--bg-color);
+}
+
+#engine-select option {
+    text-align: center;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+
+.folder-header {
+    cursor: pointer;
+    font-size: 1.2rem;
+    user-select: none;
+    margin-bottom: 5px;
+}
+
+/* Make the title look interactive */
+.clickable-title {
+    cursor: pointer;
+    transition: background-color 0.2s;
+    user-select: none;
+}
+
+.clickable-title:hover {
+    background-color: var(--text-color) !important;
+    color: var(--bg-color);
+}
+
+/* Make the title look interactive */
+.clickable-title-folder {
+    cursor: pointer;
+    transition: background-color 0.2s;
+    user-select: none;
+}
+
+.clickable-title-folder:hover {
+    background-color: var(--text-color) !important;
+    color: var(--bg-color);
+}
+
+.tui-columns-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    grid-column: 1 / -1;
+    width: 100%;
+    align-items: start;
+}
+
+.links-panel {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 15px;
+    align-items: flex-start;
+}
+
+.folder-grid-wrapper {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease-out;
+    width: 100%;
+}
+
+.folder-grid-wrapper.expanded {
+    grid-template-rows: 1fr;
+    margin-top: 15px;
+}
+
+.folder-content {
+    overflow: hidden;
+}
+
+.link-list {
+    list-style: none;
+    border-left: 2px dashed var(--text-color);
+    padding-left: 10px;
+}
+
+.link-list li {
+    margin: 5px 0;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media (max-width: 800px) {
+    .tui-columns-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.link-list a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.link-list a:hover {
+    background-color: var(--text-color);
+    color: var(--bg-color);
+}
