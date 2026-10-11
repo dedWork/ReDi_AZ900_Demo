@@ -1,0 +1,84 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "storageAccountName": {
+            "defaultValue": "armdemostorageredi",
+            "minLength": 3,
+            "maxLength": 24,
+            "type": "String",
+            "metadata": {
+                "description": "Name of the storage account (must be lowercase, 3-24 characters, globally unique)"
+            }
+        },
+        "location": {
+            "defaultValue": "[resourceGroup().location]",
+            "type": "String",
+            "metadata": {
+                "description": "Location for all resources"
+            }
+        },
+        "containerName": {
+            "defaultValue": "rediarmdemocontainerredi",
+            "type": "String",
+            "metadata": {
+                "description": "Name of the blob container"
+            }
+        }
+    },
+    "variables": {
+        "storageAccountApiVersion": "2023-01-01"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "[variables('storageAccountApiVersion')]",
+            "name": "[parameters('storageAccountName')]",
+            "location": "[parameters('location')]",
+            "sku": {
+                "name": "Standard_LRS"
+            },
+            "kind": "StorageV2",
+            "properties": {
+                "accessTier": "Hot",
+                "allowBlobPublicAccess": "true",
+                "minimumTlsVersion": "TLS1_2",
+                "supportsHttpsTrafficOnly": "true"
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+            "apiVersion": "[variables('storageAccountApiVersion')]",
+            "name": "[concat(parameters('storageAccountName'), '/default/', parameters('containerName'))]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]"
+            ],
+            "properties": {
+                "publicAccess": "Blob"
+            }
+        }
+    ],
+    "outputs": {
+        "storageAccountId": {
+            "type": "String",
+            "value": "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]",
+            "metadata": {
+                "description": "Resource ID of the storage account"
+            }
+        },
+        "storageAccountName": {
+            "type": "String",
+            "value": "[parameters('storageAccountName')]",
+            "metadata": {
+                "description": "Name of the storage account"
+            }
+        },
+        "blobContainerUrl": {
+            "type": "String",
+            "value": "[concat('https://', parameters('storageAccountName'), '.blob.core.windows.net/', parameters('containerName'))]",
+            "metadata": {
+                "description": "Public URL of the blob container"
+            }
+        }
+    }
+}
